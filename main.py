@@ -1,10 +1,8 @@
 import os
 from dotenv import load_dotenv
 import telebot
-import weather
-import upcoming_events
-import pharmacy
-from pharmacy import get_pharmacies
+from modüller import pharmacy, upcoming_events, weather
+from modüller.pharmacy import get_pharmacies
 
 # .env dosyasındaki TOKEN'ı yükleyin
 load_dotenv()
@@ -15,7 +13,7 @@ bot = telebot.TeleBot(TOKEN)
 # Tüm mesajları işleme fonksiyonu
 def save_chat_id(message):
     chat_id = message.chat.id
-    with open("chat_idler.txt", "a+") as file:
+    with open("kullanıcı_bilgileri/chat_idler.txt", "a+") as file:
         file.seek(0)
         if str(chat_id) not in file.read().split():
             file.write(str(chat_id) + "\n")
