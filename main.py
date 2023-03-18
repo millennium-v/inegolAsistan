@@ -6,11 +6,27 @@ import upcoming_events
 import pharmacy
 from pharmacy import get_pharmacies
 
-
 # .env dosyasındaki TOKEN'ı yükleyin
 load_dotenv()
 TOKEN = os.getenv('TOKEN')
 bot = telebot.TeleBot(TOKEN)
+
+
+# Tüm mesajları işleme fonksiyonu
+def save_chat_id(message):
+    chat_id = message.chat.id
+    with open("chat_idler.txt", "a+") as file:
+        file.seek(0)
+        if str(chat_id) not in file.read().split():
+            file.write(str(chat_id) + "\n")
+
+# Telegram bot komutu /basla için işlev
+@bot.message_handler(commands=['basla'])
+def send_welcome(message):
+    save_chat_id(message)
+    bot.reply_to(message,
+                 "/hava: Bu komut, hava durumunu öğrenmek için kullanılır. Bot kullanıcısının konumunu alarak, o konuma ait hava durumu bilgilerini gönderir ve hava durumuna göre öneriler verir. \n /etkinlik: Bu komut, yaklaşan etkinlikleri öğrenmek için kullanılır. Bot, İnegöl'de yaklaşan etkinlikleri ayıklar ve en yakın tarihte gerçekleşecek olan 3 etkinliği sunar. \n /eczane: Bu komut, nöbetçi eczaneleri öğrenmek için kullanılır. Bot, İnegöldeki Nöbetçi Eczaneleri anlık olarak çeker ve eczane hakkında bilgi verir.")
+
 
 # Telegram bot komutu /hava için işlev
 @bot.message_handler(commands=['hava'])
