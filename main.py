@@ -43,5 +43,5 @@ def send_weather(message):
     # Kullanıcının kim olduğunu yanıtınıza ekleyin
     bot.send_message(message.chat.id, f"Selam, @{user_name}\n{response}")
 
-# Bot'u başlatın
+# Botu başlatın
 bot.polling()
