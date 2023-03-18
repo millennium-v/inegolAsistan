@@ -1,7 +1,11 @@
+import os
+from dotenv import load_dotenv
 import telebot
 import weather
 
-TOKEN = '5868909460:AAGMwqOVw0utplOmfoKITK8YQotgcUE34_A'
+# .env dosyasındaki TOKEN'ı yükleyin
+load_dotenv()
+TOKEN = os.getenv('TOKEN')
 bot = telebot.TeleBot(TOKEN)
 
 # Telegram bot komutu /hava için işlev
